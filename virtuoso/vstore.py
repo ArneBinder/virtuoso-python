@@ -231,7 +231,8 @@ class Virtuoso(Store):
             connection.setdecoding(pyodbc.SQL_CHAR, 'utf-8', pyodbc.SQL_CHAR)
             connection.setdecoding(pyodbc.SQL_WCHAR, 'utf-32LE', pyodbc.SQL_WCHAR, unicode)
             connection.setdecoding(pyodbc.SQL_WMETADATA, 'utf-32LE', pyodbc.SQL_WCHAR, unicode)
-            connection.setencoding(unicode, 'utf-32LE', pyodbc.SQL_WCHAR)
+            #connection.setencoding(unicode, 'utf-32LE', pyodbc.SQL_WCHAR)
+            connection.setencoding(unicode, 'utf-8', pyodbc.SQL_CHAR)
             connection.setencoding(str, 'utf-8', pyodbc.SQL_CHAR)
         else:
             connection.setdecoding(pyodbc.SQL_CHAR, 'utf-8', pyodbc.SQL_CHAR)
@@ -350,7 +351,7 @@ class Virtuoso(Store):
             must_close = True
 
         try:
-            log.log(9, "query: \n" + str(q))
+            log.log(9, "query: \n" + unicode(q))
             if _construct_re.match(q):
                 return self._sparql_construct(q, cursor)
             elif _ask_re.match(q):
