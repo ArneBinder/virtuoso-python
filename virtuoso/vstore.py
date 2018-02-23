@@ -316,7 +316,7 @@ class Virtuoso(Store):
         if initBindings:
             qleft, qright = q.rsplit("}", 1)
             q = "\n".join([ qleft, "#BEGIN of VALUES inserted by initBindings" ]
-                          + [ "VALUES ?%s { %s }" % (var, val.n3())
+                          + [ "VALUES ?%s { %s }" % (var, " ".join([v.n3() for v in val]) if type(val) == list else val.n3())
                               for (var, val) in initBindings.items() ]
                           + [ "} # END of VALUES inserted by initBindings", qright ]
                           )
